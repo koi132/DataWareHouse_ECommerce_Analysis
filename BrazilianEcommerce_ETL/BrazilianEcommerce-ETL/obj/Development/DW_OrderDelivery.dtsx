@@ -1,0 +1,1447 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="5/19/2025 2:42:02 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DALEY"
+  DTS:CreatorName="DALEY\thien"
+  DTS:DTSID="{9CC7D0A4-5524-4DEA-9479-0BD5D6356B55}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="16.0.5685.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="Package2"
+  DTS:PackageType="5"
+  DTS:VersionBuild="10"
+  DTS:VersionGUID="{016F37AC-3A7B-4A9C-A1C3-079E49A19F92}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{ee386cf3-ecb9-4fe0-aea3-c688aac5859e}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="DF - Load from stgOrderDelivery to FactOrderDelivery"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\Derived Column"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="Derived Column"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\Derived Column.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\Derived Column.Inputs[Derived Column Input].Columns[order_purchase_timestamp]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="order_purchase_timestamp"
+                      lineageId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\SRC - Stage stgOrderDelivery.Outputs[OLE DB Source Output].Columns[order_purchase_timestamp]" />
+                    <inputColumn
+                      refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\Derived Column.Inputs[Derived Column Input].Columns[order_delivered_customer_date]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="order_delivered_customer_date"
+                      lineageId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\SRC - Stage stgOrderDelivery.Outputs[OLE DB Source Output].Columns[order_delivered_customer_date]" />
+                    <inputColumn
+                      refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\Derived Column.Inputs[Derived Column Input].Columns[order_estimated_delivery_date]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="order_estimated_delivery_date"
+                      lineageId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\SRC - Stage stgOrderDelivery.Outputs[OLE DB Source Output].Columns[order_estimated_delivery_date]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\Derived Column.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\Derived Column.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\Derived Column.Outputs[Derived Column Output].Columns[order_date_key]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\Derived Column.Outputs[Derived Column Output].Columns[order_date_key]"
+                      name="order_date_key"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[DAY](#{Package\DF - Load from stgOrderDelivery to FactOrderDelivery\SRC - Stage stgOrderDelivery.Outputs[OLE DB Source Output].Columns[order_purchase_timestamp]}) + [MONTH](#{Package\DF - Load from stgOrderDelivery to FactOrderDelivery\SRC - Stage stgOrderDelivery.Outputs[OLE DB Source Output].Columns[order_purchase_timestamp]}) * 100 + [YEAR](#{Package\DF - Load from stgOrderDelivery to FactOrderDelivery\SRC - Stage stgOrderDelivery.Outputs[OLE DB Source Output].Columns[order_purchase_timestamp]}) * 10000</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">DAY(order_purchase_timestamp) + MONTH(order_purchase_timestamp) * 100 + YEAR(order_purchase_timestamp) * 10000</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\Derived Column.Outputs[Derived Column Output].Columns[delivered_date_key]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\Derived Column.Outputs[Derived Column Output].Columns[delivered_date_key]"
+                      name="delivered_date_key"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[ISNULL](#{Package\DF - Load from stgOrderDelivery to FactOrderDelivery\SRC - Stage stgOrderDelivery.Outputs[OLE DB Source Output].Columns[order_delivered_customer_date]}) ? -1 : ([YEAR](#{Package\DF - Load from stgOrderDelivery to FactOrderDelivery\SRC - Stage stgOrderDelivery.Outputs[OLE DB Source Output].Columns[order_delivered_customer_date]}) * 10000) + ([MONTH](#{Package\DF - Load from stgOrderDelivery to FactOrderDelivery\SRC - Stage stgOrderDelivery.Outputs[OLE DB Source Output].Columns[order_delivered_customer_date]}) * 100) + [DAY](#{Package\DF - Load from stgOrderDelivery to FactOrderDelivery\SRC - Stage stgOrderDelivery.Outputs[OLE DB Source Output].Columns[order_delivered_customer_date]})</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">ISNULL(order_delivered_customer_date) ? -1 : (YEAR(order_delivered_customer_date) * 10000) + (MONTH(order_delivered_customer_date) * 100) + DAY(order_delivered_customer_date)</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\Derived Column.Outputs[Derived Column Output].Columns[delivery_time]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\Derived Column.Outputs[Derived Column Output].Columns[delivery_time]"
+                      name="delivery_time"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[ISNULL](#{Package\DF - Load from stgOrderDelivery to FactOrderDelivery\SRC - Stage stgOrderDelivery.Outputs[OLE DB Source Output].Columns[order_delivered_customer_date]}) ? NULL(DT_I4) : [DATEDIFF]("day",#{Package\DF - Load from stgOrderDelivery to FactOrderDelivery\SRC - Stage stgOrderDelivery.Outputs[OLE DB Source Output].Columns[order_purchase_timestamp]},#{Package\DF - Load from stgOrderDelivery to FactOrderDelivery\SRC - Stage stgOrderDelivery.Outputs[OLE DB Source Output].Columns[order_delivered_customer_date]})</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">ISNULL(order_delivered_customer_date) ? NULL(DT_I4) : DATEDIFF("day",order_purchase_timestamp,order_delivered_customer_date)</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\Derived Column.Outputs[Derived Column Output].Columns[estimate_delivery_time]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\Derived Column.Outputs[Derived Column Output].Columns[estimate_delivery_time]"
+                      name="estimate_delivery_time"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[DATEDIFF]("day",#{Package\DF - Load from stgOrderDelivery to FactOrderDelivery\SRC - Stage stgOrderDelivery.Outputs[OLE DB Source Output].Columns[order_purchase_timestamp]},#{Package\DF - Load from stgOrderDelivery to FactOrderDelivery\SRC - Stage stgOrderDelivery.Outputs[OLE DB Source Output].Columns[order_estimated_delivery_date]})</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">DATEDIFF("day",order_purchase_timestamp,order_estimated_delivery_date)</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\Derived Column.Outputs[Derived Column Output].Columns[is_delay]"
+                      dataType="bool"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\Derived Column.Outputs[Derived Column Output].Columns[is_delay]"
+                      name="is_delay"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[ISNULL](#{Package\DF - Load from stgOrderDelivery to FactOrderDelivery\SRC - Stage stgOrderDelivery.Outputs[OLE DB Source Output].Columns[order_delivered_customer_date]}) ? NULL(DT_BOOL) : #{Package\DF - Load from stgOrderDelivery to FactOrderDelivery\SRC - Stage stgOrderDelivery.Outputs[OLE DB Source Output].Columns[order_delivered_customer_date]} &gt; #{Package\DF - Load from stgOrderDelivery to FactOrderDelivery\SRC - Stage stgOrderDelivery.Outputs[OLE DB Source Output].Columns[order_estimated_delivery_date]} ?  TRUE  :  FALSE </property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">ISNULL(order_delivered_customer_date) ? NULL(DT_BOOL) : order_delivered_customer_date &gt; order_estimated_delivery_date ?  TRUE  :  FALSE </property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\Derived Column.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\Derived Column.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\DimOrder"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="DimOrder"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[DimOrder]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[DimOrder]) [refTable]
+where [refTable].[order_id] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="order_key" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="order_id" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="customer_id" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="order_status" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="order_purchase_timestamp" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="order_approved_at" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="order_delivered_carrier_date" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="order_delivered_customer_date" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="order_estimated_delivery_date" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="RowIsCurrent" dataType="DT_BOOL" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="RowStartDate" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="RowEndDate" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="RowChangeReason" dataType="DT_WSTR" length="200" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="InsertAuditKey" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="UpdateAuditKey" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\DF - Load from stgOrderDelivery to FactOrderDelivery\SRC - Stage stgOrderDelivery.Outputs[OLE DB Source Output].Columns[order_id]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\DimOrder.Connections[OleDbConnection]"
+                  connectionManagerID="{108B1625-4F76-48F4-9014-3C8D828C3E49}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DALEY.BrazilianEcommerceDW]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\DimOrder.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\DimOrder.Inputs[Lookup Input].Columns[order_id]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="order_id"
+                      lineageId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\SRC - Stage stgOrderDelivery.Outputs[OLE DB Source Output].Columns[order_id]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">order_id</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\DimOrder.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\DimOrder.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\DimOrder.Outputs[Lookup Match Output].Columns[order_key]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\DimOrder.Outputs[Lookup Match Output].Columns[order_key]"
+                      name="order_key"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">order_key</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\DimOrder.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\DimOrder.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\DimOrder.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\DimOrder.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\DimOrder.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\DimOrder.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\DimOrder.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\DimOrder.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\DST - Slowly Changing Dimension FactOrderDelivery"
+              componentClassID="Microsoft.SCD"
+              contactInfo="Slowly Changing Dimension;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;3"
+              description="Updates a SQL Server Analysis Services data warehouse dimension. Update dimension records that are already present and  insert dimension records that aren't. For example, update the DimProduct table of the AdventureWorksDW OLAP database with data from the Products table in the AdventureWorks OLTP database."
+              name="DST - Slowly Changing Dimension FactOrderDelivery"
+              version="3">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SELECT statement used to create a schema rowset."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT [delivered_date_key], [delivery_time], [estimate_delivery_time], [is_delay], [order_date_key], [order_id], [order_key] FROM [dbo].[FactOrderDelivery]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the WHERE clause in the SELECT statement that selects the current row among rows with identical business keys."
+                  name="CurrentRowWhere"></property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether historical attribute updates are directed to the transformation output for changing attribute updates."
+                  name="UpdateChangingAttributeHistory">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the transformation fails when columns with fixed attributes contain changes."
+                  name="FailOnFixedAttributeChange">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the column name for the inferred member."
+                  name="InferredMemberIndicator"></property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether inferred member updates are detected."
+                  name="EnableInferredMember">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the transformation fails when a lookup of an existing record fails."
+                  name="FailOnLookupFailure">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies that all rows in the input are new or the transformation detects the change type."
+                  name="IncomingRowChangeType"
+                  typeConverter="IncomingRowChangeType">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\DST - Slowly Changing Dimension FactOrderDelivery.Connections[LookupConnection]"
+                  connectionManagerID="{108B1625-4F76-48F4-9014-3C8D828C3E49}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DALEY.BrazilianEcommerceDW]"
+                  description="Defines the connection to use for lookups in the dimension table"
+                  name="LookupConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\DST - Slowly Changing Dimension FactOrderDelivery.Inputs[Slowly Changing Dimension Input]"
+                  name="Slowly Changing Dimension Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\DST - Slowly Changing Dimension FactOrderDelivery.Inputs[Slowly Changing Dimension Input].Columns[delivered_date_key]"
+                      cachedDataType="i4"
+                      cachedName="delivered_date_key"
+                      externalMetadataColumnId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\DST - Slowly Changing Dimension FactOrderDelivery.Inputs[Slowly Changing Dimension Input].ExternalColumns[delivered_date_key]"
+                      lineageId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\Derived Column.Outputs[Derived Column Output].Columns[delivered_date_key]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          name="ColumnType"
+                          typeConverter="ColumnType">2</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\DST - Slowly Changing Dimension FactOrderDelivery.Inputs[Slowly Changing Dimension Input].Columns[delivery_time]"
+                      cachedDataType="i4"
+                      cachedName="delivery_time"
+                      externalMetadataColumnId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\DST - Slowly Changing Dimension FactOrderDelivery.Inputs[Slowly Changing Dimension Input].ExternalColumns[delivery_time]"
+                      lineageId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\Derived Column.Outputs[Derived Column Output].Columns[delivery_time]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          name="ColumnType"
+                          typeConverter="ColumnType">2</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\DST - Slowly Changing Dimension FactOrderDelivery.Inputs[Slowly Changing Dimension Input].Columns[estimate_delivery_time]"
+                      cachedDataType="i4"
+                      cachedName="estimate_delivery_time"
+                      externalMetadataColumnId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\DST - Slowly Changing Dimension FactOrderDelivery.Inputs[Slowly Changing Dimension Input].ExternalColumns[estimate_delivery_time]"
+                      lineageId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\Derived Column.Outputs[Derived Column Output].Columns[estimate_delivery_time]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          name="ColumnType"
+                          typeConverter="ColumnType">2</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\DST - Slowly Changing Dimension FactOrderDelivery.Inputs[Slowly Changing Dimension Input].Columns[is_delay]"
+                      cachedDataType="bool"
+                      cachedName="is_delay"
+                      externalMetadataColumnId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\DST - Slowly Changing Dimension FactOrderDelivery.Inputs[Slowly Changing Dimension Input].ExternalColumns[is_delay]"
+                      lineageId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\Derived Column.Outputs[Derived Column Output].Columns[is_delay]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          name="ColumnType"
+                          typeConverter="ColumnType">2</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\DST - Slowly Changing Dimension FactOrderDelivery.Inputs[Slowly Changing Dimension Input].Columns[order_date_key]"
+                      cachedDataType="i4"
+                      cachedName="order_date_key"
+                      externalMetadataColumnId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\DST - Slowly Changing Dimension FactOrderDelivery.Inputs[Slowly Changing Dimension Input].ExternalColumns[order_date_key]"
+                      lineageId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\Derived Column.Outputs[Derived Column Output].Columns[order_date_key]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          name="ColumnType"
+                          typeConverter="ColumnType">2</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\DST - Slowly Changing Dimension FactOrderDelivery.Inputs[Slowly Changing Dimension Input].Columns[order_id]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="order_id"
+                      externalMetadataColumnId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\DST - Slowly Changing Dimension FactOrderDelivery.Inputs[Slowly Changing Dimension Input].ExternalColumns[order_id]"
+                      lineageId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\SRC - Stage stgOrderDelivery.Outputs[OLE DB Source Output].Columns[order_id]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          name="ColumnType"
+                          typeConverter="ColumnType">1</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\DST - Slowly Changing Dimension FactOrderDelivery.Inputs[Slowly Changing Dimension Input].Columns[order_key]"
+                      cachedDataType="i4"
+                      cachedName="order_key"
+                      externalMetadataColumnId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\DST - Slowly Changing Dimension FactOrderDelivery.Inputs[Slowly Changing Dimension Input].ExternalColumns[order_key]"
+                      lineageId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\DimOrder.Outputs[Lookup Match Output].Columns[order_key]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          name="ColumnType"
+                          typeConverter="ColumnType">1</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\DST - Slowly Changing Dimension FactOrderDelivery.Inputs[Slowly Changing Dimension Input].ExternalColumns[delivered_date_key]"
+                      dataType="i4"
+                      name="delivered_date_key" />
+                    <externalMetadataColumn
+                      refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\DST - Slowly Changing Dimension FactOrderDelivery.Inputs[Slowly Changing Dimension Input].ExternalColumns[delivery_time]"
+                      dataType="i4"
+                      name="delivery_time" />
+                    <externalMetadataColumn
+                      refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\DST - Slowly Changing Dimension FactOrderDelivery.Inputs[Slowly Changing Dimension Input].ExternalColumns[estimate_delivery_time]"
+                      dataType="i4"
+                      name="estimate_delivery_time" />
+                    <externalMetadataColumn
+                      refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\DST - Slowly Changing Dimension FactOrderDelivery.Inputs[Slowly Changing Dimension Input].ExternalColumns[is_delay]"
+                      dataType="bool"
+                      name="is_delay" />
+                    <externalMetadataColumn
+                      refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\DST - Slowly Changing Dimension FactOrderDelivery.Inputs[Slowly Changing Dimension Input].ExternalColumns[order_date_key]"
+                      dataType="i4"
+                      name="order_date_key" />
+                    <externalMetadataColumn
+                      refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\DST - Slowly Changing Dimension FactOrderDelivery.Inputs[Slowly Changing Dimension Input].ExternalColumns[order_id]"
+                      dataType="wstr"
+                      length="50"
+                      name="order_id" />
+                    <externalMetadataColumn
+                      refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\DST - Slowly Changing Dimension FactOrderDelivery.Inputs[Slowly Changing Dimension Input].ExternalColumns[order_key]"
+                      dataType="i4"
+                      name="order_key" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\DST - Slowly Changing Dimension FactOrderDelivery.Outputs[Unchanged Output]"
+                  description="Unchanged rows"
+                  exclusionGroup="1"
+                  name="Unchanged Output"
+                  synchronousInputId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\DST - Slowly Changing Dimension FactOrderDelivery.Inputs[Slowly Changing Dimension Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\DST - Slowly Changing Dimension FactOrderDelivery.Outputs[New Output]"
+                  description="New rows"
+                  exclusionGroup="1"
+                  name="New Output"
+                  synchronousInputId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\DST - Slowly Changing Dimension FactOrderDelivery.Inputs[Slowly Changing Dimension Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\DST - Slowly Changing Dimension FactOrderDelivery.Outputs[Fixed Attribute Output]"
+                  description="Rows with changes in columns tagged FixedAttribute"
+                  exclusionGroup="1"
+                  name="Fixed Attribute Output"
+                  synchronousInputId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\DST - Slowly Changing Dimension FactOrderDelivery.Inputs[Slowly Changing Dimension Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\DST - Slowly Changing Dimension FactOrderDelivery.Outputs[Changing Attribute Updates Output]"
+                  description="These rows contain new information for ChangingAttribute (Type 1) column changes"
+                  exclusionGroup="1"
+                  name="Changing Attribute Updates Output"
+                  synchronousInputId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\DST - Slowly Changing Dimension FactOrderDelivery.Inputs[Slowly Changing Dimension Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\DST - Slowly Changing Dimension FactOrderDelivery.Outputs[Historical Attribute Inserts Output]"
+                  description="HistoricalAttribute (Type 2) changes result in these new rows"
+                  exclusionGroup="2"
+                  name="Historical Attribute Inserts Output"
+                  synchronousInputId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\DST - Slowly Changing Dimension FactOrderDelivery.Inputs[Slowly Changing Dimension Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\DST - Slowly Changing Dimension FactOrderDelivery.Outputs[Inferred Member Updates Output]"
+                  description="Information to update unpopulated initial dimension row"
+                  exclusionGroup="1"
+                  name="Inferred Member Updates Output"
+                  synchronousInputId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\DST - Slowly Changing Dimension FactOrderDelivery.Inputs[Slowly Changing Dimension Input]">
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\Insert Destination"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="Insert Destination"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[FactOrderDelivery]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\Insert Destination.Connections[OleDbConnection]"
+                  connectionManagerID="{108B1625-4F76-48F4-9014-3C8D828C3E49}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DALEY.BrazilianEcommerceDW]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\Insert Destination.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\Insert Destination.Inputs[OLE DB Destination Input].Columns[order_key]"
+                      cachedDataType="i4"
+                      cachedName="order_key"
+                      externalMetadataColumnId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[order_key]"
+                      lineageId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\DimOrder.Outputs[Lookup Match Output].Columns[order_key]" />
+                    <inputColumn
+                      refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\Insert Destination.Inputs[OLE DB Destination Input].Columns[order_date_key]"
+                      cachedDataType="i4"
+                      cachedName="order_date_key"
+                      externalMetadataColumnId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[order_date_key]"
+                      lineageId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\Derived Column.Outputs[Derived Column Output].Columns[order_date_key]" />
+                    <inputColumn
+                      refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\Insert Destination.Inputs[OLE DB Destination Input].Columns[delivered_date_key]"
+                      cachedDataType="i4"
+                      cachedName="delivered_date_key"
+                      externalMetadataColumnId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[delivered_date_key]"
+                      lineageId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\Derived Column.Outputs[Derived Column Output].Columns[delivered_date_key]" />
+                    <inputColumn
+                      refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\Insert Destination.Inputs[OLE DB Destination Input].Columns[order_id]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="order_id"
+                      externalMetadataColumnId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[order_id]"
+                      lineageId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\SRC - Stage stgOrderDelivery.Outputs[OLE DB Source Output].Columns[order_id]" />
+                    <inputColumn
+                      refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\Insert Destination.Inputs[OLE DB Destination Input].Columns[delivery_time]"
+                      cachedDataType="i4"
+                      cachedName="delivery_time"
+                      externalMetadataColumnId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[delivery_time]"
+                      lineageId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\Derived Column.Outputs[Derived Column Output].Columns[delivery_time]" />
+                    <inputColumn
+                      refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\Insert Destination.Inputs[OLE DB Destination Input].Columns[estimate_delivery_time]"
+                      cachedDataType="i4"
+                      cachedName="estimate_delivery_time"
+                      externalMetadataColumnId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[estimate_delivery_time]"
+                      lineageId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\Derived Column.Outputs[Derived Column Output].Columns[estimate_delivery_time]" />
+                    <inputColumn
+                      refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\Insert Destination.Inputs[OLE DB Destination Input].Columns[is_delay]"
+                      cachedDataType="bool"
+                      cachedName="is_delay"
+                      externalMetadataColumnId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[is_delay]"
+                      lineageId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\Derived Column.Outputs[Derived Column Output].Columns[is_delay]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[order_key]"
+                      dataType="i4"
+                      name="order_key" />
+                    <externalMetadataColumn
+                      refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[order_date_key]"
+                      dataType="i4"
+                      name="order_date_key" />
+                    <externalMetadataColumn
+                      refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[delivered_date_key]"
+                      dataType="i4"
+                      name="delivered_date_key" />
+                    <externalMetadataColumn
+                      refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[order_id]"
+                      dataType="wstr"
+                      length="50"
+                      name="order_id" />
+                    <externalMetadataColumn
+                      refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[delivery_time]"
+                      dataType="i4"
+                      name="delivery_time" />
+                    <externalMetadataColumn
+                      refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[estimate_delivery_time]"
+                      dataType="i4"
+                      name="estimate_delivery_time" />
+                    <externalMetadataColumn
+                      refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[is_delay]"
+                      dataType="bool"
+                      name="is_delay" />
+                    <externalMetadataColumn
+                      refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[InsertAuditKey]"
+                      dataType="i4"
+                      name="InsertAuditKey" />
+                    <externalMetadataColumn
+                      refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[UpdateAuditKey]"
+                      dataType="i4"
+                      name="UpdateAuditKey" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\Insert Destination.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\Insert Destination.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\Insert Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\Insert Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\Insert Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\Insert Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\OLE DB Command"
+              componentClassID="Microsoft.OLEDBCommand"
+              contactInfo="OLE DB Command;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;2"
+              description="Runs an SQL statement for each row in a data flow. For example, call a 'new employee setup' stored procedure for each row in the 'new employees' table. Note: running an SQL statement for each row of a large data flow may take a long time."
+              name="OLE DB Command"
+              usesDispositions="true"
+              version="2">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">UPDATE [dbo].[FactOrderDelivery] SET [delivered_date_key] = ?,[delivery_time] = ?,[estimate_delivery_time] = ?,[is_delay] = ?,[order_date_key] = ? WHERE [order_id] = ? AND [order_key] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\OLE DB Command.Connections[OleDbConnection]"
+                  connectionManagerID="{108B1625-4F76-48F4-9014-3C8D828C3E49}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DALEY.BrazilianEcommerceDW]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\OLE DB Command.Inputs[OLE DB Command Input]"
+                  errorOrTruncationOperation="Command Execution"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Command Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\OLE DB Command.Inputs[OLE DB Command Input].Columns[delivered_date_key]"
+                      cachedDataType="i4"
+                      cachedName="delivered_date_key"
+                      externalMetadataColumnId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_0]"
+                      lineageId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\Derived Column.Outputs[Derived Column Output].Columns[delivered_date_key]" />
+                    <inputColumn
+                      refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\OLE DB Command.Inputs[OLE DB Command Input].Columns[delivery_time]"
+                      cachedDataType="i4"
+                      cachedName="delivery_time"
+                      externalMetadataColumnId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_1]"
+                      lineageId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\Derived Column.Outputs[Derived Column Output].Columns[delivery_time]" />
+                    <inputColumn
+                      refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\OLE DB Command.Inputs[OLE DB Command Input].Columns[estimate_delivery_time]"
+                      cachedDataType="i4"
+                      cachedName="estimate_delivery_time"
+                      externalMetadataColumnId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_2]"
+                      lineageId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\Derived Column.Outputs[Derived Column Output].Columns[estimate_delivery_time]" />
+                    <inputColumn
+                      refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\OLE DB Command.Inputs[OLE DB Command Input].Columns[is_delay]"
+                      cachedDataType="bool"
+                      cachedName="is_delay"
+                      externalMetadataColumnId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_3]"
+                      lineageId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\Derived Column.Outputs[Derived Column Output].Columns[is_delay]" />
+                    <inputColumn
+                      refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\OLE DB Command.Inputs[OLE DB Command Input].Columns[order_date_key]"
+                      cachedDataType="i4"
+                      cachedName="order_date_key"
+                      externalMetadataColumnId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_4]"
+                      lineageId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\Derived Column.Outputs[Derived Column Output].Columns[order_date_key]" />
+                    <inputColumn
+                      refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\OLE DB Command.Inputs[OLE DB Command Input].Columns[order_id]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="order_id"
+                      externalMetadataColumnId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_5]"
+                      lineageId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\SRC - Stage stgOrderDelivery.Outputs[OLE DB Source Output].Columns[order_id]" />
+                    <inputColumn
+                      refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\OLE DB Command.Inputs[OLE DB Command Input].Columns[order_key]"
+                      cachedDataType="i4"
+                      cachedName="order_key"
+                      externalMetadataColumnId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_6]"
+                      lineageId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\DimOrder.Outputs[Lookup Match Output].Columns[order_key]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_0]"
+                      dataType="i4"
+                      name="Param_0">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">81</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_1]"
+                      dataType="i4"
+                      name="Param_1">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">81</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_2]"
+                      dataType="i4"
+                      name="Param_2">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">81</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_3]"
+                      dataType="bool"
+                      name="Param_3">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_4]"
+                      dataType="i4"
+                      name="Param_4">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">81</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_5]"
+                      dataType="wstr"
+                      length="50"
+                      name="Param_5">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_6]"
+                      dataType="i4"
+                      name="Param_6">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">81</property>
+                      </properties>
+                    </externalMetadataColumn>
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\OLE DB Command.Outputs[OLE DB Command Output]"
+                  exclusionGroup="1"
+                  name="OLE DB Command Output"
+                  synchronousInputId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\OLE DB Command.Inputs[OLE DB Command Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\OLE DB Command.Outputs[OLE DB Command Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Command Error Output"
+                  synchronousInputId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\OLE DB Command.Inputs[OLE DB Command Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\OLE DB Command.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\OLE DB Command.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\OLE DB Command.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\OLE DB Command.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\SRC - Stage stgOrderDelivery"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="SRC - Stage stgOrderDelivery"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[stgOrderDelivery]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\SRC - Stage stgOrderDelivery.Connections[OleDbConnection]"
+                  connectionManagerID="{A8B34A4E-1972-4B5B-8E80-1A1A0C022A6C}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DALEY.BrazilianEcommerceStage]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\SRC - Stage stgOrderDelivery.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\SRC - Stage stgOrderDelivery.Outputs[OLE DB Source Output].Columns[order_id]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\SRC - Stage stgOrderDelivery.Outputs[OLE DB Source Output].ExternalColumns[order_id]"
+                      length="50"
+                      lineageId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\SRC - Stage stgOrderDelivery.Outputs[OLE DB Source Output].Columns[order_id]"
+                      name="order_id"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\SRC - Stage stgOrderDelivery.Outputs[OLE DB Source Output].Columns[order_purchase_timestamp]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\SRC - Stage stgOrderDelivery.Outputs[OLE DB Source Output].ExternalColumns[order_purchase_timestamp]"
+                      lineageId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\SRC - Stage stgOrderDelivery.Outputs[OLE DB Source Output].Columns[order_purchase_timestamp]"
+                      name="order_purchase_timestamp"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\SRC - Stage stgOrderDelivery.Outputs[OLE DB Source Output].Columns[order_delivered_customer_date]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\SRC - Stage stgOrderDelivery.Outputs[OLE DB Source Output].ExternalColumns[order_delivered_customer_date]"
+                      lineageId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\SRC - Stage stgOrderDelivery.Outputs[OLE DB Source Output].Columns[order_delivered_customer_date]"
+                      name="order_delivered_customer_date"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\SRC - Stage stgOrderDelivery.Outputs[OLE DB Source Output].Columns[order_estimated_delivery_date]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\SRC - Stage stgOrderDelivery.Outputs[OLE DB Source Output].ExternalColumns[order_estimated_delivery_date]"
+                      lineageId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\SRC - Stage stgOrderDelivery.Outputs[OLE DB Source Output].Columns[order_estimated_delivery_date]"
+                      name="order_estimated_delivery_date"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\SRC - Stage stgOrderDelivery.Outputs[OLE DB Source Output].ExternalColumns[order_id]"
+                      dataType="wstr"
+                      length="50"
+                      name="order_id" />
+                    <externalMetadataColumn
+                      refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\SRC - Stage stgOrderDelivery.Outputs[OLE DB Source Output].ExternalColumns[order_purchase_timestamp]"
+                      dataType="dbTimeStamp"
+                      name="order_purchase_timestamp" />
+                    <externalMetadataColumn
+                      refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\SRC - Stage stgOrderDelivery.Outputs[OLE DB Source Output].ExternalColumns[order_delivered_customer_date]"
+                      dataType="dbTimeStamp"
+                      name="order_delivered_customer_date" />
+                    <externalMetadataColumn
+                      refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\SRC - Stage stgOrderDelivery.Outputs[OLE DB Source Output].ExternalColumns[order_estimated_delivery_date]"
+                      dataType="dbTimeStamp"
+                      name="order_estimated_delivery_date" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\SRC - Stage stgOrderDelivery.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\SRC - Stage stgOrderDelivery.Outputs[OLE DB Source Error Output].Columns[order_id]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\SRC - Stage stgOrderDelivery.Outputs[OLE DB Source Error Output].Columns[order_id]"
+                      name="order_id" />
+                    <outputColumn
+                      refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\SRC - Stage stgOrderDelivery.Outputs[OLE DB Source Error Output].Columns[order_purchase_timestamp]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\SRC - Stage stgOrderDelivery.Outputs[OLE DB Source Error Output].Columns[order_purchase_timestamp]"
+                      name="order_purchase_timestamp" />
+                    <outputColumn
+                      refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\SRC - Stage stgOrderDelivery.Outputs[OLE DB Source Error Output].Columns[order_delivered_customer_date]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\SRC - Stage stgOrderDelivery.Outputs[OLE DB Source Error Output].Columns[order_delivered_customer_date]"
+                      name="order_delivered_customer_date" />
+                    <outputColumn
+                      refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\SRC - Stage stgOrderDelivery.Outputs[OLE DB Source Error Output].Columns[order_estimated_delivery_date]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\SRC - Stage stgOrderDelivery.Outputs[OLE DB Source Error Output].Columns[order_estimated_delivery_date]"
+                      name="order_estimated_delivery_date" />
+                    <outputColumn
+                      refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\SRC - Stage stgOrderDelivery.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\SRC - Stage stgOrderDelivery.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\SRC - Stage stgOrderDelivery.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\SRC - Stage stgOrderDelivery.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery.Paths[Changing Attribute Updates Output]"
+              endId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\OLE DB Command.Inputs[OLE DB Command Input]"
+              name="Changing Attribute Updates Output"
+              startId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\DST - Slowly Changing Dimension FactOrderDelivery.Outputs[Changing Attribute Updates Output]" />
+            <path
+              refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery.Paths[Derived Column Output]"
+              endId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\DST - Slowly Changing Dimension FactOrderDelivery.Inputs[Slowly Changing Dimension Input]"
+              name="Derived Column Output"
+              startId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\Derived Column.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery.Paths[Lookup Match Output]"
+              endId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\Derived Column.Inputs[Derived Column Input]"
+              name="Lookup Match Output"
+              startId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\DimOrder.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery.Paths[New Output]"
+              endId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\Insert Destination.Inputs[OLE DB Destination Input]"
+              name="New Output"
+              startId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\DST - Slowly Changing Dimension FactOrderDelivery.Outputs[New Output]" />
+            <path
+              refId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery.Paths[OLE DB Source Output]"
+              endId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\DimOrder.Inputs[Lookup Input]"
+              name="OLE DB Source Output"
+              startId="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\SRC - Stage stgOrderDelivery.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Execute SQL Task"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{2db5f93f-3118-4ebd-99af-5b117b7bc6c6}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Execute SQL Task"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{108B1625-4F76-48F4-9014-3C8D828C3E49}"
+          SQLTask:SqlStatementSource="delete from FactOrderDelivery;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{562A0E4C-3019-4955-8DD5-23D289859028}"
+      DTS:From="Package\Execute SQL Task"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\DF - Load from stgOrderDelivery to FactOrderDelivery" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="162.666666666667,42"
+          Id="Package\Execute SQL Task"
+          TopLeft="108,54" />
+        <NodeLayout
+          Size="333.333333333334,42"
+          Id="Package\DF - Load from stgOrderDelivery to FactOrderDelivery"
+          TopLeft="46.892839221551,157.499999070168" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="189.446419610776,96">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,61.499999070168"
+              Start="0,0"
+              End="0,53.999999070168">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,53.999999070168" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\DF - Load from stgOrderDelivery to FactOrderDelivery">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="124,42"
+          Id="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\DimOrder"
+          TopLeft="250,107.5" />
+        <NodeLayout
+          Size="162.666666666667,42"
+          Id="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\Insert Destination"
+          TopLeft="83.5000000000001,410.5" />
+        <NodeLayout
+          Size="166,42"
+          Id="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\OLE DB Command"
+          TopLeft="377,415.5" />
+        <NodeLayout
+          Size="154,42"
+          Id="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\Derived Column"
+          TopLeft="235,209.5" />
+        <NodeLayout
+          Size="217.333333333334,42"
+          Id="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\SRC - Stage stgOrderDelivery"
+          TopLeft="203.5,5.5" />
+        <NodeLayout
+          Size="327.333333333334,42.6666666666667"
+          Id="Package\DF - Load from stgOrderDelivery to FactOrderDelivery\DST - Slowly Changing Dimension FactOrderDelivery"
+          TopLeft="169,311.5" />
+        <EdgeLayout
+          Id="Package\DF - Load from stgOrderDelivery to FactOrderDelivery.Paths[Changing Attribute Updates Output]"
+          TopLeft="385.888888888889,354.166666666667">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="74.1111111111111,61.3333333333333"
+              Start="0,0"
+              End="74.1111111111111,53.8333333333333">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,20.7123361707877" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,20.7123361707877"
+                    Point2="0,24.7123361707877"
+                    Point3="4,24.7123361707877" />
+                  <mssgle:LineSegment
+                    End="70.1111111111111,24.7123361707877" />
+                  <mssgle:CubicBezierSegment
+                    Point1="70.1111111111111,24.7123361707877"
+                    Point2="74.1111111111111,24.7123361707877"
+                    Point3="74.1111111111111,28.7123361707877" />
+                  <mssgle:LineSegment
+                    End="74.1111111111111,53.8333333333333" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-41.4783506944445,29.7123361707877,157.0678125,11.6630859375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DF - Load from stgOrderDelivery to FactOrderDelivery.Paths[OLE DB Source Output]"
+          TopLeft="312,47.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DF - Load from stgOrderDelivery to FactOrderDelivery.Paths[New Output]"
+          TopLeft="279.444444444444,354.166666666667">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-114.611111111111,56.3333333333333"
+              Start="0,0"
+              End="-114.611111111111,48.8333333333333">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,18.6977435481692" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,18.6977435481692"
+                    Point2="0,22.6977435481692"
+                    Point3="-4,22.6977435481692" />
+                  <mssgle:LineSegment
+                    End="-110.611111111111,22.6977435481692" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-110.611111111111,22.6977435481692"
+                    Point2="-114.611111111111,22.6977435481692"
+                    Point3="-114.611111111111,26.6977435481692" />
+                  <mssgle:LineSegment
+                    End="-114.611111111111,48.8333333333333" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-84.3969422743055,27.6977435481692,54.1827734375,11.43359375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DF - Load from stgOrderDelivery to FactOrderDelivery.Paths[Lookup Match Output]"
+          TopLeft="312,149.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,20.4453125,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DF - Load from stgOrderDelivery to FactOrderDelivery.Paths[Derived Column Output]"
+          TopLeft="312,251.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="20.6666666666667,60"
+              Start="0,0"
+              End="20.6666666666667,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,26" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,26"
+                    Point2="0,30"
+                    Point3="4,30" />
+                  <mssgle:LineSegment
+                    End="16.6666666666667,30" />
+                  <mssgle:CubicBezierSegment
+                    Point1="16.6666666666667,30"
+                    Point2="20.6666666666667,30"
+                    Point3="20.6666666666667,34" />
+                  <mssgle:LineSegment
+                    End="20.6666666666667,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

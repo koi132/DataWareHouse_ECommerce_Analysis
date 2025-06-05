@@ -1,0 +1,146 @@
+﻿-- 1. Tổng số lượng đơn hàng đã bán trong các năm 2016, 2017, 2018 là bao nhiêu?
+SELECT
+  { [Measures].[Fact Sales Count]
+  } ON COLUMNS,
+  { [Order Date].[Year].&[2016]
+  , [Order Date].[Year].&[2017]
+  , [Order Date].[Year].&[2018]
+  } ON ROWS
+FROM [Brazilian Ecommerce DW];
+
+-- 2. Top 10 thành phố theo tổng doanh thu
+SELECT
+  { [Measures].[Total Price] } ON COLUMNS,
+  TopCount(
+    Except(
+      [Dim Customer].[Customer City].Members,
+      { [Dim Customer].[Customer City].DefaultMember }
+    ),
+    10,
+    [Measures].[Total Price]
+  ) ON ROWS
+FROM [Brazilian Ecommerce DW];
+
+-- 3. Tổng giá trị vận chuyển (Freight Value) và tổng giá trị đơn hàng theo tháng là bao nhiêu?
+SELECT
+  { [Measures].[Total Freight Value]
+  , [Measures].[Total Price]
+  } ON COLUMNS,
+  ORDER(
+    Except(
+      -- Lấy tất cả các tháng (level [Month] của attribute-hierarchy [Order Date].[Month])
+      [Order Date].[Month].[Month].Members,
+      {
+        -- Loại bỏ member All của hierarchy
+        [Order Date].[Month].DefaultMember,
+        -- Loại bỏ member key = 0 (nếu có)
+        [Order Date].[Month].[Month].&[0]
+      }
+    ),
+    -- Sắp xếp tăng dần theo giá trị số của tháng
+    [Order Date].[Month].CurrentMember.MemberValue,
+    BASC
+  ) ON ROWS
+FROM [Brazilian Ecommerce DW];
+
+-- 4. Tổng doanh thu cuối tuần với ngày trong tuần.
+SELECT
+  { [Measures].[Total Price] } ON COLUMNS,
+  { [Order Date].[Is Weekend].&[Weekday]
+  , [Order Date].[Is Weekend].&[Weekend]
+  } ON ROWS
+FROM [Brazilian Ecommerce DW];
+
+-- 5. Tổng số đơn hàng theo trạng thái giao hàng là bao nhiêu?
+SELECT
+  Except(
+    [Dim Order].[Order Status].Members,
+    {[Dim Order].[Order Status].DefaultMember}
+  ) ON ROWS,
+  [Measures].[Fact Order Delivery Count] ON COLUMNS
+FROM [Brazilian Ecommerce DW];
+
+-- 6. Số đơn hàng được đặt theo tháng là?
+SELECT
+  { [Measures].[Fact Order Delivery Count]
+  } ON COLUMNS,
+  ORDER(
+    Except(
+      -- Lấy tất cả các tháng (level [Month] của attribute-hierarchy [Order Date].[Month])
+      [Order Date].[Month].[Month].Members,
+      {
+        -- Loại bỏ member All của hierarchy
+        [Order Date].[Month].DefaultMember,
+        -- Loại bỏ member key = 0 (nếu có)
+        [Order Date].[Month].[Month].&[0]
+      }
+    ),
+    -- Sắp xếp tăng dần theo giá trị số của tháng
+    [Order Date].[Month].CurrentMember.MemberValue,
+    BASC
+  ) ON ROWS
+FROM [Brazilian Ecommerce DW];
+
+-- 7. Số lượng đơn hàng giao hàng theo từng ngày trong tuần như thế nào?
+SELECT
+  Except(
+    [Delivered Date].[Day Of Week].Members,
+    {
+      [Delivered Date].[Day Of Week].DefaultMember,
+      [Delivered Date].[Day Of Week].&[0]
+    }
+  ) ON ROWS,
+  [Measures].[Fact Order Delivery Count] ON COLUMNS
+FROM [Brazilian Ecommerce DW];
+
+-- 8. Danh mục sản phẩm nào có giá cao nhất?
+SELECT 
+  {[Measures].[Price]} ON COLUMNS,
+  TOPCOUNT(
+    -- Lấy trực tiếp các con của All (tức là bỏ All)
+    [Dim Product].[Product Category Name].Children,
+    10,
+    [Measures].[Fact Product Price Count]
+  ) ON ROWS
+FROM [Brazilian Ecommerce DW];
+
+-- 9. Thời gian giao hàng trung bình và thời gian giao hàng dự kiến thay đổi theo tháng thế nào?
+SELECT
+  { [Measures].[Delivery Time],
+    [Measures].[Estimate Delivery Time]
+  } ON COLUMNS,
+  ORDER(
+    Except(
+      -- Lấy tất cả các tháng (level [Month] của attribute-hierarchy [Order Date].[Month])
+      [Order Date].[Month].[Month].Members,
+      {
+        -- Loại bỏ member All của hierarchy
+        [Order Date].[Month].DefaultMember,
+        -- Loại bỏ member key = 0 (nếu có)
+        [Order Date].[Month].[Month].&[0]
+      }
+    ),
+    -- Sắp xếp tăng dần theo giá trị số của tháng
+    [Order Date].[Month].CurrentMember.MemberValue,
+    BASC
+  ) ON ROWS
+FROM [Brazilian Ecommerce DW];
+
+-- 10. Danh mục sản phẩm nào có sự thay đổi từ năm 2016 đến năm 2018 nhiều nhất?
+WITH MEMBER [Measures].[Change_2016_2018] AS
+  ABS(
+    ([Measures].[Fact Product Price Count], [Dim Date].[Year].&[2018]) 
+  - 
+    ([Measures].[Fact Product Price Count], [Dim Date].[Year].&[2016])
+  )
+
+SELECT 
+  {[Measures].[Change_2016_2018]} ON COLUMNS,
+  ORDER(
+    [Dim Product].[Product Category Name].Children,
+    [Measures].[Change_2016_2018],
+    DESC
+  ) ON ROWS
+FROM [Brazilian Ecommerce DW];
+
+

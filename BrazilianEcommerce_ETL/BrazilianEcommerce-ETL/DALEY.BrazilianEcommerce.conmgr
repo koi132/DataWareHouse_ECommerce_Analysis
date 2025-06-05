@@ -1,0 +1,12 @@
+﻿<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ObjectName="DALEY.BrazilianEcommerce"
+  DTS:DTSID="{3992F7F9-7F74-446E-8113-C9BAC67A4056}"
+  DTS:CreationName="OLEDB">
+  <DTS:ObjectData>
+    <DTS:ConnectionManager
+      DTS:ConnectRetryCount="1"
+      DTS:ConnectRetryInterval="5"
+      DTS:ConnectionString="Data Source=DALEY;User ID=;Initial Catalog=BrazilianEcommerce;Provider=MSOLEDBSQL.1;Persist Security Info=False;Integrated Security=SSPI;Initial File Name=;Trust Server Certificate=True;Server SPN=;Authentication=;Access Token=;Application Name=SSIS-BrazilianEcommerce-ETL-{3992F7F9-7F74-446E-8113-C9BAC67A4056}DALEY.BrazilianEcommerce;Auto Translate=False;" />
+  </DTS:ObjectData>
+</DTS:ConnectionManager>
